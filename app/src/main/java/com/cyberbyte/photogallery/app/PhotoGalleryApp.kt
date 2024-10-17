@@ -2,6 +2,7 @@ package com.cyberbyte.photogallery.app
 
 import android.app.Application
 import com.cyberbyte.photogallery.service.PhotoGalleryApiService
+import com.cyberbyte.photogallery.service.PhotoGalleryDataService
 import com.cyberbyte.photogallery.ui.viewmodel.MainViewModel
 import com.cyberbyte.photogallery.usecase.GetRemotePhotoGalleryUseCase
 import okhttp3.OkHttpClient
@@ -28,9 +29,14 @@ class PhotoGalleryApp : Application(), DIAware
                 .build()
         }
 
-        // PhotoGalleryService
+        // PhotoGalleryApiService
         bind<PhotoGalleryApiService>() with singleton {
             instance<Retrofit>().create(PhotoGalleryApiService::class.java)
+        }
+
+        // PhotoGalleryDataService
+        bind<PhotoGalleryDataService>() with singleton {
+            PhotoGalleryDataService(instance())
         }
 
         // UseCases
