@@ -2,6 +2,7 @@ package com.cyberbyte.photogallery.app
 
 import android.app.Application
 import com.cyberbyte.photogallery.service.PhotoGalleryApiService
+import com.cyberbyte.photogallery.ui.viewmodel.MainViewModel
 import com.cyberbyte.photogallery.usecase.GetRemotePhotoGalleryUseCase
 import okhttp3.OkHttpClient
 import org.kodein.di.DI
@@ -35,6 +36,11 @@ class PhotoGalleryApp : Application(), DIAware
         // UseCases
         bind<GetRemotePhotoGalleryUseCase>() with singleton {
             GetRemotePhotoGalleryUseCase(instance())
+        }
+
+        //ViewModels
+        bind<MainViewModel>() with singleton{
+            MainViewModel(instance())
         }
     }
 
