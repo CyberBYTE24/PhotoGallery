@@ -70,21 +70,28 @@ class PhotoAdapter(private var photos: List<Photo>, private var photoListener: P
     inner class PhotoViewHolder(
         private val binding: ItemPhotoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        
+        // Bind function with overload Photo item type
         fun bind(photo: Photo) {
             binding.photo = photo
             binding.executePendingBindings()
         }
 
+        // Bind function with overload Photo event listener type
         fun bind(listener: PhotoListener) {
             binding.listener = listener
             binding.executePendingBindings()
         }
     }
+    // Provide methods for photo items comparing
     class PhotoDiffCallback : DiffUtil.ItemCallback<Photo>(){
+
+        // Is photo items same
         override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean{
             return oldItem.id == newItem.id
         }
 
+        // Is photo item's content same
         override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
             if (oldItem.id != newItem.id) return false
             if (oldItem.photographer != newItem.photographer) return false
