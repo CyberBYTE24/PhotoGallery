@@ -34,13 +34,16 @@ class PhotoAdapter(private var photos: List<Photo>, private var photoListener: P
 
     // Get Item Count
     override fun getItemCount(): Int = photos.size
-
+    // Update photo from list
     fun updatePhotos(newPhotos: List<Photo>){
         photos = newPhotos
         notifyDataSetChanged()
     }
 
+    //Companion object for property adapter define
     companion object{
+
+        // Set image by Glide library
         @JvmStatic
         @BindingAdapter("setImage")
         fun setImage(imageView: ShapeableImageView, image: String?){
@@ -51,7 +54,8 @@ class PhotoAdapter(private var photos: List<Photo>, private var photoListener: P
                 .load(image)
                 .into(imageView)
         }
-
+        
+        // Set title in photo item
         @JvmStatic
         @BindingAdapter("setTitle")
         fun setTitle(textView: TextView, title: String?) {
@@ -62,7 +66,7 @@ class PhotoAdapter(private var photos: List<Photo>, private var photoListener: P
             }
         }
     }
-
+    // PhotoView holder provide data binding variables
     inner class PhotoViewHolder(
         private val binding: ItemPhotoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
