@@ -12,9 +12,12 @@ import com.cyberbyte.photogallery.databinding.ItemPhotoBinding
 import com.cyberbyte.photogallery.model.Photo
 import com.google.android.material.imageview.ShapeableImageView
 
+// Represent adapter for implementation Photo Item in UI
 class PhotoAdapter(private var photos: List<Photo>, private var photoListener: PhotoListener) : ListAdapter<Photo, PhotoAdapter.PhotoViewHolder>(
     PhotoDiffCallback()
 ) {
+
+    // Handle for creation view holder object
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -23,11 +26,13 @@ class PhotoAdapter(private var photos: List<Photo>, private var photoListener: P
         return PhotoViewHolder(binding)
     }
 
+    // Handle for binding action
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         holder.bind(photos[position])
         holder.bind(photoListener)
     }
 
+    // Get Item Count
     override fun getItemCount(): Int = photos.size
 
     fun updatePhotos(newPhotos: List<Photo>){
