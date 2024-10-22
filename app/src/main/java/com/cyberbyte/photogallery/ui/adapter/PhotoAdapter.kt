@@ -3,11 +3,13 @@ package com.cyberbyte.photogallery.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cyberbyte.photogallery.R
 import com.cyberbyte.photogallery.databinding.ItemPhotoBinding
 import com.cyberbyte.photogallery.model.Photo
 import com.google.android.material.imageview.ShapeableImageView
@@ -42,6 +44,11 @@ class PhotoAdapter(private var photos: List<Photo>, private var photoListener: P
 
     //Companion object for property adapter define
     companion object{
+        @JvmStatic
+        @BindingAdapter("setFavoriteCondition")
+        fun setFavouriteCondition(imageView: ShapeableImageView, isFavorite: Boolean) {
+            imageView.isVisible = isFavorite
+        }
 
         // Set image by Glide library
         @JvmStatic
