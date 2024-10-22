@@ -15,8 +15,10 @@ import org.kodein.di.singleton
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+//Application class
 class PhotoGalleryApp : Application(), DIAware
 {
+    //Dependency Injection in app
     override val di by DI.lazy{
         import(androidXModule(this@PhotoGalleryApp))
 
