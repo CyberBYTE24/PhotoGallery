@@ -41,6 +41,6 @@ class MainActivity : AppCompatActivity(), DIAware, PhotoListener {
     }
 
     override fun onPhotoClicked(photo: Photo) {
-        TODO("Not yet implemented")
+
     }
 }
