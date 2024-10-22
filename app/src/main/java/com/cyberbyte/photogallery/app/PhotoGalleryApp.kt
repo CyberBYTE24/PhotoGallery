@@ -49,5 +49,4 @@ class PhotoGalleryApp : Application(), DIAware
             MainViewModel(instance())
         }
     }
-
 }

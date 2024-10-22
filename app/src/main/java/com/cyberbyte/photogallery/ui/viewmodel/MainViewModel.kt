@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val getRemotePhotoGalleryUseCase: GetRemotePhotoGalleryUseCase
 ) : ViewModel() {
-
     private val _photos = MutableLiveData<MutableList<Photo>>()
     val photos: LiveData<MutableList<Photo>> get() = _photos
 
@@ -20,8 +19,4 @@ class MainViewModel(
             _photos.value = getRemotePhotoGalleryUseCase.invoke().toMutableList()
         }
     }
-
-
-
-
 }

@@ -14,30 +14,22 @@ import org.kodein.di.android.closestDI
 import org.kodein.di.instance
 
 class MainActivity : AppCompatActivity(), DIAware, PhotoListener {
-
     override val di by closestDI()
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var photoAdapter: PhotoAdapter
-
     private val viewModel: MainViewModel by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         photoAdapter = PhotoAdapter(emptyList(), this)
-
         binding.recyclerViewMovie.layoutManager = GridLayoutManager(this, 3)
         binding.recyclerViewMovie.adapter = photoAdapter
-
         viewModel.photos.observe(this){ photos ->
             photoAdapter.updatePhotos(photos)
         }
         viewModel.loadPhotos()
-
         setContentView(binding.root)
-
     }
 
     override fun onPhotoClicked(photo: Photo) {
