@@ -1,45 +1,53 @@
 package com.cyberbyte.photogallery.ui.view
 
 import android.os.Bundle
+import android.view.Menu
+import com.google.android.material.navigation.NavigationView
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
+import com.cyberbyte.photogallery.R
 import com.cyberbyte.photogallery.databinding.ActivityMainBinding
-import com.cyberbyte.photogallery.model.Photo
-import com.cyberbyte.photogallery.ui.adapter.PhotoAdapter
-import com.cyberbyte.photogallery.ui.adapter.PhotoListener
-import com.cyberbyte.photogallery.ui.viewmodel.MainViewModel
-import org.kodein.di.DIAware
-import org.kodein.di.android.closestDI
-import org.kodein.di.instance
 
-// Application's Main activity
-class MainActivity : AppCompatActivity(), DIAware, PhotoListener {
+class MainActivity : AppCompatActivity() {
 
-    // Dependency Injection getting
-    override val di by closestDI()
-    // ViewBinding variable
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    // Photo Item List Adapter
-    private lateinit var photoAdapter: PhotoAdapter
-    // ViewModel for Main Activity
-    private val viewModel: MainViewModel by instance()
 
-    // Handle create event
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
-        photoAdapter = PhotoAdapter(emptyList(), this)
-        binding.recyclerViewMovie.layoutManager = GridLayoutManager(this, 3)
-        binding.recyclerViewMovie.adapter = photoAdapter
-        viewModel.photos.observe(this){ photos ->
-            photoAdapter.updatePhotos(photos)
-        }
-        viewModel.loadPhotos()
         setContentView(binding.root)
+
+        setSupportActionBar(binding.appBarMain.toolbar)
+
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_main
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 
-    // Handle Photo Item click by PhotoListener interface
-    override fun onPhotoClicked(photo: Photo) {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

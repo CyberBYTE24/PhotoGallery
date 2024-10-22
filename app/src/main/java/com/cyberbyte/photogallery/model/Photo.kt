@@ -18,5 +18,7 @@ data class Photo(
     //Photo URL
     @SerializedName("src")
     @Expose
-    val src: Src?
+    val src: Src?,
+
+    var favorite: Boolean
 )
