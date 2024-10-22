@@ -15,6 +15,7 @@ data class Photo(
     @Expose
     val photographer: String?,
 
+    //Photo URL
     @SerializedName("src")
     @Expose
     val src: Src?
